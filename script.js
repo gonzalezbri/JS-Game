@@ -1,5 +1,9 @@
 const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const gameCanvas = canvas.getContext("2d");
+
+//creating the background
+gameCanvas.fillStyle = "#000000";
+gameCanvas.fillRect(0, 0, canvas.width, canvas.height);
 
 //creating the Player//
 const player = {
@@ -11,11 +15,11 @@ const player = {
 };
 player.image.src = '/assets/images/player.png';
 player.image.onload = function() {
-    ctx.drawImage(player.image, player.x - player.width/2, player.y - player.height/2, player.width, player.height);
-}
+    gameCanvas.drawImage(player.image, player.x - player.width/2, player.y - player.height/2, player.width, player.height);
+};
 function createPlayer() {
-    ctx.drawImage(player.image, player.x - player.width/2, player.y - player.height/2, player.width, player.height);
-}
+    gameCanvas.drawImage(player.image, player.x - player.width/2, player.y - player.height/2, player.width, player.height);
+};
 
 //creating the Alien
 
@@ -27,9 +31,9 @@ const alien = {
     image: new Image(),
 };
 alien.image.onload = function() {
-    ctx.drawImage(alien.image, alien.x, alien.y, alien.width, alien.height);
+    gameCanvas.drawImage(alien.image, alien.x, alien.y, alien.width, alien.height);
 };
-alien.image.src = '/assets/images/alien.jpg';
+alien.image.src = '/assets/images/alien.png';
 function createAlien() {
-    ctx.drawImage(alien.image, alien.x - alien.width/2, alien.y - alien.height/2, alien.width, alien.height);
-}
+    gameCanvas.drawImage(alien.image, alien.x - alien.width/2, alien.y - alien.height/2, alien.width, alien.height);
+};
