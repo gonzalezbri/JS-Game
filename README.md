@@ -5,7 +5,12 @@ Creating my Javascripte Milestone Game
 2. Create the player object and Alien object using 'x','y','width' and with 'Image' properties using free assets from opengameart.org then 'Drawing' them both onto the 'canvas'
 3. Allow the player to move left & right using the keyboard input to update the 'x' position accordingly.
 4. Create a game loop that updates the game by rendering black background and calling 'updatePlayer' place the locationg accoordingly. then clears my canvas using 'clearRect' to render the next frame, call 'createPlayer' & 'createAlien', As well as using a 'setTimeout' to call the gameloop after a short 10ms delay.
-5. 
+5. Implement shooting: Allowing the player to create bullet objects that move and down the screen as well as a collision detector function for when it hits the alien.
+6. Adding multiple aliens:
+8. Scoring: adding and displaying a way for the player to keep track of their score.
+9. Implement a GAME OVER mechanic
+10. Extra Styling and sound effects using sound constructors.
+
 
 
 
