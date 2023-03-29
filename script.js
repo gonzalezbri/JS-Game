@@ -52,6 +52,12 @@ document.addEventListener('keydown',function(event){
         case "ArrowRight":
             playerMovement = 5;
             break;
+        case "a":
+            playerMovement = -5;
+            break;
+        case "d":
+            playerMovement = 5;
+            break;
     }
 });
 // add event listener for arrow key releases
@@ -59,7 +65,9 @@ document.addEventListener("keyup", function(event) {
     switch (event.key) {
       // left or right arrow key
     case "ArrowLeft":
+        case "a":
     case "ArrowRight":
+        case "d":
         playerMovement = 0;
         break;
     }
