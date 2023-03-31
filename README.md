@@ -24,3 +24,6 @@ Alien:https://opengameart.org/content/jumping-galaxy-asset-cc-by-30
 script.js line 17:https://stackoverflow.com/questions/12354865/image-onload-event-and-browser-cache
 
 StackOverflow(https://stackoverflow.blog/2019/11/06/lets-get-graphic-a-few-ways-to-draw-on-the-web/ & https://stackoverflow.com/questions/60238728/html-canvas-problems-with-context-drawimage) that '2D rendering context' can be used on the canvas to draw and remove graphics
+
+bullet cites: https://stackoverflow.com/questions/74094203/i-cant-figure-out-how-to-make-my-loop-work-in-my-space-invader-like-game-in-java, 
+

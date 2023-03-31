@@ -82,19 +82,79 @@ function updatePlayer() {
     player.x = canvas.width - player.width/2;
     }
 }
+
+// P R O J E C T I L E S //
+
+// array to hold the bullets
+let bullets = [];
+
+// function to create bullets
+function createBullets() {
+  // loop through all the bullets and draw them on the canvas
+for (let i = 0; i < bullets.length; i++) {
+    gameCanvas.fillStyle = "#FFFFFF";
+    gameCanvas.fillRect(bullets[i].x, bullets[i].y, 2, 10);
+}
+}
+
+// function to update bullet position
+function updateBullets() {
+  // loop through all the bullets and update their positions
+for (let i = 0; i < bullets.length; i++) {
+    bullets[i].y -= 5;
+
+    // remove the bullet from the array if it goes off the top of the screen
+    if (bullets[i].y < 0) {
+    bullets.splice(i, 1);
+    }
+}
+}
+
+// listen for space bar key press
+document.addEventListener("keydown", function(event) {
+    switch (event.key) {
+      case " ": // Space bar key
+        bullets.push({
+        x: player.x,
+        y: player.y,
+        width: 5,
+        height: 15,
+        color: "#ff0000",
+        speed: 10
+        });
+        break;
+    }});
+// adding the option of using your left click to fire
+    document.addEventListener("mousedown", function(event) {
+        switch (event.button) {
+          case 0: // Left mouse button
+            bullets.push({
+            x: player.x,
+            y: player.y,
+            width: 5,
+            height: 15,
+            color: "#ff0000",
+            speed: 10
+            });
+            break;
+        }
+    });
+    
 function gameLoop() {
     // set the canvas fill color to black
     gameCanvas.fillStyle = "#000000";
     
     // render the background
     gameCanvas.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // update the player position based on movement
-    updatePlayer();
-    
     // render the game objects
     createPlayer();
     createAlien();
+    // update the player position based on movement
+    updatePlayer();
+    // render bullets
+    createBullets();
+    //update the bullets 
+    updateBullets();
     
     // call the game loop again after 10ms
     setTimeout(gameLoop, 10);
