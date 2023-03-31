@@ -5,8 +5,8 @@ Creating my Javascripte Milestone Game
 2. Create the player object and Alien object using 'x','y','width' and with 'Image' properties using free assets from opengameart.org then 'Drawing' them both onto the 'canvas'
 3. Allow the player to move left & right using the keyboard input ('Left & Right Arrow' Keys OR 'A'&'D') to update the 'x' position accordingly.
 4. Create a game loop that updates the game by rendering black background and calling 'updatePlayer' place the locationg accoordingly. then clears my canvas using 'clearRect' to render the next frame, call 'createPlayer' & 'createAlien', As well as using a 'setTimeout' to call the gameloop after a short 10ms delay.
-5. Implement shooting: Allowing the player to create bullet objects that move and down the screen as well as a collision detector function for when it hits the alien.
-6. Adding multiple aliens:
+5. Implement shooting: Allowing the player to create bullet objects that move and down the screen as well as a collision detector function for when it hits the alien. I added '3' health as to give the alien some sense of resilience that will eventually be give off a sound to tell the player that he has hit the alien and a different sound will play to signal the alien is dead.
+6. Adding multiple aliens and making the alien move within the game window and bounce from the boundary to create a sort of 'DVD VIDEO' style loop by adding velocity.
 8. Scoring: adding and displaying a way for the player to keep track of their score.
 9. Implement a GAME OVER mechanic
 10. Extra Styling and sound effects using sound constructors.
@@ -25,5 +25,5 @@ script.js line 17:https://stackoverflow.com/questions/12354865/image-onload-even
 
 StackOverflow(https://stackoverflow.blog/2019/11/06/lets-get-graphic-a-few-ways-to-draw-on-the-web/ & https://stackoverflow.com/questions/60238728/html-canvas-problems-with-context-drawimage) that '2D rendering context' can be used on the canvas to draw and remove graphics
 
-bullet cites: https://stackoverflow.com/questions/74094203/i-cant-figure-out-how-to-make-my-loop-work-in-my-space-invader-like-game-in-java, 
+bullet/collision cites: https://stackoverflow.com/questions/74094203/i-cant-figure-out-how-to-make-my-loop-work-in-my-space-invader-like-game-in-java, https://codeheir.com/2019/03/17/how-to-code-space-invaders-1978-7/
 

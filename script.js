@@ -28,13 +28,39 @@ const alien = {
     y: 50,
     width: 50,
     height: 50,
+    health: 3,
     image: new Image(),
 };
 alien.image.onload = function() {
     gameCanvas.drawImage(alien.image, alien.x, alien.y, alien.width, alien.height);
 };
 alien.image.src = '/assets/images/alien.png';
+
+// defining initial velocity
+let vx = 2;
+let vy = 1;
+
 function createAlien() {
+    // update position based on velocity
+    alien.x += vx;
+    alien.y += vy;
+
+    // check if alien hits left or right boundary
+    if (alien.x - alien.width/2 < 0 || alien.x + alien.width/2 > canvas.width) {
+        vx = -vx; // reverse x velocity
+    }
+
+    if (alien.y - alien.height/2 < 0 || alien.y + alien.height/2 > canvas.height / 2) {
+        vy = -vy; // reverse y velocity
+    }
+
+    // keep the alien within the top half of the canvas
+    if (alien.y > canvas.height / 4) {
+        alien.y = canvas.height / 4;
+        vy = -vy; // reverse y velocity to bounce back up
+    }
+
+    // draw the alien
     gameCanvas.drawImage(alien.image, alien.x - alien.width/2, alien.y - alien.height/2, alien.width, alien.height);
 };
 
@@ -140,23 +166,21 @@ document.addEventListener("keydown", function(event) {
         }
     });
     
-function gameLoop() {
-    // set the canvas fill color to black
-    gameCanvas.fillStyle = "#000000";
+    function gameLoop() {
+        // set the canvas fill color to black
+        gameCanvas.fillStyle = "#000000";
+        
+        // render the background
+        gameCanvas.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // update and render game objects
+        createPlayer();
+        createAlien();
+        updatePlayer();
+        createBullets();
+        updateBullets();
     
-    // render the background
-    gameCanvas.fillRect(0, 0, canvas.width, canvas.height);
-    // render the game objects
-    createPlayer();
-    createAlien();
-    // update the player position based on movement
-    updatePlayer();
-    // render bullets
-    createBullets();
-    //update the bullets 
-    updateBullets();
-    
-    // call the game loop again after 10ms
-    setTimeout(gameLoop, 10);
-}
+        // schedule the next frame
+        requestAnimationFrame(gameLoop);
+    }
 gameLoop();
