@@ -115,6 +115,21 @@ function updatePlayer() {
 
 // array to hold the bullets
 let bullets = [];
+// creating death sounds
+const deathSounds = [
+    "/assets/sounds/fart12",
+    "/assets/sounds/whistle13",
+    "/assets/sounds/whistle1",
+    "/assets/sounds/fart27",
+];
+//creating a laser sound effect
+function playLaserSound() {
+    const audio = new Audio('/assets/sounds/laserpew.ogg');
+    audio.play();
+}
+function fireProjectile() {
+    playLaserSound();
+}
 
 // function to create bullets
 function createBullets() {
@@ -152,15 +167,26 @@ function collisionDetection() {
             // if the alien has been hit by 3 bullets, set to indicate that it has been destroyed
             if (alien.health === 3) {
                 alien.destroyed = true;
+                const soundIndex = Math.floor(Math.random() * deathSounds.length); // choose a random sound from the array
+                const deathSound = new Audio(deathSounds[soundIndex] + ".mp3"); // creates a new audio object with the chosen sound
+                deathSound.play(); // play the sound
             }
         }
     }
 }
 
+// When the alien dies, randomly select and play a sound effect
+function alienDeath() {
+    const randomSound = deathSounds[Math.floor(Math.random() * deathSounds.length)];
+    const audio = new Audio(randomSound);
+    audio.play();}
+
 // listen for space bar key press
 document.addEventListener("keydown", function(event) {
     switch (event.key) {
       case " ": // Space bar key
+      //this calls the projectile sound from the function on space
+        fireProjectile();
         bullets.push({
         x: player.x,
         y: player.y,
@@ -175,6 +201,8 @@ document.addEventListener("keydown", function(event) {
     document.addEventListener("mousedown", function(event) {
         switch (event.button) {
           case 0: // Left mouse button
+          //this calls the projectile sound from the function on click
+            fireProjectile();
             bullets.push({
             x: player.x,
             y: player.y,
