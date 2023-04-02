@@ -27,3 +27,5 @@ StackOverflow(https://stackoverflow.blog/2019/11/06/lets-get-graphic-a-few-ways-
 
 bullet/collision cites: https://stackoverflow.com/questions/74094203/i-cant-figure-out-how-to-make-my-loop-work-in-my-space-invader-like-game-in-java, https://codeheir.com/2019/03/17/how-to-code-space-invaders-1978-7/
 
+Sounds:(fart sounds) : https://sfx.productioncrate.com/search/#!/fart&ss=tab&_ga=2.106241603.113615241.1680459407-219726450.1680459407&_gl=1*1bzwfxy*_ga*MjE5NzI2NDUwLjE2ODA0NTk0MDc.*_ga_NHS4EFR3W8*MTY4MDQ1OTQwNy4xLjEuMTY4MDQ1OTc3Ni4wLjAuMA..
+(laser sounds) : https://opengameart.org/content/pew-laser-fire-sound
