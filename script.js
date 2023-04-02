@@ -28,7 +28,7 @@ const alien = {
     y: 50,
     width: 50,
     height: 50,
-    health: 3,
+    health:0,
     image: new Image(),
 };
 alien.image.onload = function() {
@@ -41,6 +41,8 @@ let vx = 2;
 let vy = 1;
 
 function createAlien() {
+    // This chekcs if the alien has been destroyed or not.
+    if (!alien.destroyed) {
     // update position based on velocity
     alien.x += vx;
     alien.y += vy;
@@ -62,7 +64,7 @@ function createAlien() {
 
     // draw the alien
     gameCanvas.drawImage(alien.image, alien.x - alien.width/2, alien.y - alien.height/2, alien.width, alien.height);
-};
+}};
 
 //making the player move//
 let playerMovement = 0;
@@ -135,6 +137,25 @@ for (let i = 0; i < bullets.length; i++) {
     }
 }
 }
+//Collision detection 
+function collisionDetection() {
+    // loop through all the bullets and check for collisions with the alien
+    for (let i = 0; i < bullets.length; i++) {
+        if (bullets[i].x < alien.x + alien.width &&
+            bullets[i].x + bullets[i].width > alien.x &&
+            bullets[i].y < alien.y + alien.height &&
+            bullets[i].y + bullets[i].height > alien.y) {
+            // if a collision is detected, increment alien health and remove the bullet
+            alien.health++;
+            bullets.splice(i, 1);
+
+            // if the alien has been hit by 3 bullets, set to indicate that it has been destroyed
+            if (alien.health === 3) {
+                alien.destroyed = true;
+            }
+        }
+    }
+}
 
 // listen for space bar key press
 document.addEventListener("keydown", function(event) {
@@ -179,7 +200,8 @@ document.addEventListener("keydown", function(event) {
         updatePlayer();
         createBullets();
         updateBullets();
-    
+        collisionDetection();
+        
         // schedule the next frame
         requestAnimationFrame(gameLoop);
     }
