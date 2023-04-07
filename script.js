@@ -23,48 +23,75 @@ function createPlayer() {
 
 //creating the Alien
 
-const alien = {
-    x: 100,
-    y: 50,
-    width: 50,
-    height: 50,
-    health:0,
-    image: new Image(),
-};
-alien.image.onload = function() {
-    gameCanvas.drawImage(alien.image, alien.x, alien.y, alien.width, alien.height);
-};
-alien.image.src = '/assets/images/alien.png';
+// Created an 'aliens' array to store multiple alien objects
+let aliens = []
+let alien = {
+	x: 100,
+	y: 50,
+	width: 50,
+	height: 50,
+	health: 0,
+	image: new Image(),
+}
+alien.image.src = '/assets/images/alien.png'
 
 // defining initial velocity
-let vx = 2;
-let vy = 1;
+let vx = 0.5
+let vy = 0.5
+
+// creating # of newAlien objects and pushing them to the 'aliens' array. 
+for (let i = 0; i < 10; i++) {
+	let newAlien = Object.assign({}, alien)
+	// this creates a 'newAlien' object that has the same paramaters as 'alien' object defined above. but we're just addding 
+	// new x, y, and direction params 
+	newAlien.x = Math.random() * (canvas.width - newAlien.width)
+	newAlien.y = Math.random() * (canvas.height - newAlien.height)
+	newAlien.directionX = Math.random() < 0.5 ? -1 : 1
+	newAlien.directionY = Math.random() < 0.5 ? -1 : 1
+
+	aliens.push(newAlien)
+}
 
 function createAlien() {
-    // This chekcs if the alien has been destroyed or not.
-    if (!alien.destroyed) {
-    // update position based on velocity
-    alien.x += vx;
-    alien.y += vy;
 
-    // check if alien hits left or right boundary
-    if (alien.x - alien.width/2 < 0 || alien.x + alien.width/2 > canvas.width) {
-        vx = -vx; // reverse x velocity
-    }
+// wrapped if statements in for loop that iterates over whatever number of aliens u set on line 43
+	for (let i = 0; i < aliens.length; i++) {
+		// Check if the alien has reached the edges of the canvas
+		if (!alien.destroyed) {
+			let currentAlien = aliens[i]
 
-    if (alien.y - alien.height/2 < 0 || alien.y + alien.height/2 > canvas.height / 2) {
-        vy = -vy; // reverse y velocity
-    }
+			currentAlien.x += vx * currentAlien.directionX
+			currentAlien.y += vy * currentAlien.directionY
 
-    // keep the alien within the top half of the canvas
-    if (alien.y > canvas.height / 4) {
-        alien.y = canvas.height / 4;
-        vy = -vy; // reverse y velocity to bounce back up
-    }
+			if (
+				currentAlien.x < 0 ||
+				currentAlien.x > canvas.width - currentAlien.width
+			) {
+				vx = -vx // reverse direction if alien hits left or right wall
+			}
 
-    // draw the alien
-    gameCanvas.drawImage(alien.image, alien.x - alien.width/2, alien.y - alien.height/2, alien.width, alien.height);
-}};
+			if (
+				currentAlien.y < 0 ||
+				currentAlien.y > canvas.height - currentAlien.height
+			) {
+				vy = -vy
+			}
+			// keep the alien within the top half of the canvas
+			if (currentAlien.y > canvas.height / 4) {
+				currentAlien.y = canvas.height / 4
+				vy = -vy // reverse y velocity to bounce back up
+			}
+			gameCanvas.drawImage(
+				alien.image,
+				currentAlien.x,
+				currentAlien.y,
+				alien.width,
+				alien.height
+			)
+		}
+	}
+}
+
 
 //making the player move//
 let playerMovement = 0;
@@ -154,22 +181,21 @@ for (let i = 0; i < bullets.length; i++) {
 }
 //Collision detection 
 function collisionDetection() {
-    // loop through all the bullets and check for collisions with the alien
     for (let i = 0; i < bullets.length; i++) {
-        if (bullets[i].x < alien.x + alien.width &&
-            bullets[i].x + bullets[i].width > alien.x &&
-            bullets[i].y < alien.y + alien.height &&
-            bullets[i].y + bullets[i].height > alien.y) {
-            // if a collision is detected, increment alien health and remove the bullet
-            alien.health++;
-            bullets.splice(i, 1);
+        for (let j = 0; j < aliens.length; j++) { // loop through all the aliens
+            if (bullets[i].x < aliens[j].x + aliens[j].width &&
+                bullets[i].x + bullets[i].width > aliens[j].x &&
+                bullets[i].y < aliens[j].y + aliens[j].height &&
+                bullets[i].y + bullets[i].height > aliens[j].y) {
+                aliens[j].health++; // increment the health of the hit alien
+                bullets.splice(i, 1); // remove the bullet that hit the alien
 
-            // if the alien has been hit by 3 bullets, set to indicate that it has been destroyed
-            if (alien.health === 3) {
-                alien.destroyed = true;
-                const soundIndex = Math.floor(Math.random() * deathSounds.length); // choose a random sound from the array
-                const deathSound = new Audio(deathSounds[soundIndex] + ".mp3"); // creates a new audio object with the chosen sound
-                deathSound.play(); // play the sound
+                if (aliens[j].health === 3) { // if the alien has been hit 3 times
+                    aliens[j].destroyed = true; // set the destroyed flag to true
+                    const soundIndex = Math.floor(Math.random() * deathSounds.length); 
+                    const deathSound = new Audio(deathSounds[soundIndex] + ".mp3"); 
+                    deathSound.play(); 
+                }
             }
         }
     }
