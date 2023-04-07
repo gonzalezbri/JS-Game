@@ -57,7 +57,7 @@ function createAlien() {
 // wrapped if statements in for loop that iterates over whatever number of aliens u set on line 43
 	for (let i = 0; i < aliens.length; i++) {
 		// Check if the alien has reached the edges of the canvas
-		if (!alien.destroyed) {
+		if (!aliens[i].destroyed) {
 			let currentAlien = aliens[i]
 
 			currentAlien.x += vx * currentAlien.directionX
@@ -178,19 +178,21 @@ for (let i = 0; i < bullets.length; i++) {
 //Collision detection 
 function collisionDetection() {
     for (let i = 0; i < bullets.length; i++) {
-        for (let j = 0; j < aliens.length; j++) { // loop through all the aliens
-            if (bullets[i].x < aliens[j].x + aliens[j].width &&
-                bullets[i].x + bullets[i].width > aliens[j].x &&
-                bullets[i].y < aliens[j].y + aliens[j].height &&
-                bullets[i].y + bullets[i].height > aliens[j].y) {
-                aliens[j].health++; // increment the health of the hit alien
-                bullets.splice(i, 1); // remove the bullet that hit the alien
-
-                if (aliens[j].health === 3) { // if the alien has been hit 3 times
-                    aliens[j].destroyed = true; // set the destroyed flag to true
-                    const soundIndex = Math.floor(Math.random() * deathSounds.length); 
-                    const deathSound = new Audio(deathSounds[soundIndex] + ".mp3"); 
-                    deathSound.play(); 
+        for (let j = 0; j < aliens.length; j++) {
+            if (bullets[i] && aliens[j]) { //added a check if bullets[i] and aliens[j] exist to the loop
+                if (bullets[i].x < aliens[j].x + aliens[j].width &&
+                    bullets[i].x + bullets[i].width > aliens[j].x &&
+                    bullets[i].y < aliens[j].y + aliens[j].height &&
+                    bullets[i].y + bullets[i].height > aliens[j].y) {
+                    aliens[j].health++; // increment the health of the hit alien
+                    bullets.splice(i, 1); // remove the bullet that hit the alien
+                    
+                    if (aliens[j].health === 3) { // if the alien has been hit 3 times
+                        aliens[j].destroyed = true; // set the destroyed flag to true
+                        const soundIndex = Math.floor(Math.random() * deathSounds.length); 
+                        const deathSound = new Audio(deathSounds[soundIndex] + ".mp3"); 
+                        deathSound.play(); 
+                    }
                 }
             }
         }
