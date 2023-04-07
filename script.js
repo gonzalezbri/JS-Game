@@ -1,5 +1,10 @@
 const canvas = document.getElementById("gameCanvas");
 const gameCanvas = canvas.getContext("2d");
+//Setting the total game run time to 15 sec
+let gameTime = 0;
+setInterval(function(){
+    gameTime++;
+}, 2000);
 
 //creating the background
 gameCanvas.fillStyle = "#000000";
@@ -53,11 +58,12 @@ for (let i = 0; i < 10; i++) {
 }
 
 function createAlien() {
-
+    let aliensRemaining = 0; // 
 // wrapped if statements in for loop that iterates over whatever number of aliens u set on line 43
 	for (let i = 0; i < aliens.length; i++) {
 		// Check if the alien has reached the edges of the canvas
 		if (!aliens[i].destroyed) {
+            aliensRemaining++;
 			let currentAlien = aliens[i]
 
 			currentAlien.x += vx * currentAlien.directionX
@@ -86,6 +92,13 @@ function createAlien() {
 			
 		}
 	}
+    if (aliensRemaining === 0) {
+        // All aliens are destroyed, display "you win" image
+        gameCanvas.drawImage(youWinImage, 0, 0, canvas.width, canvas.height);
+    } else if (gameTime >= 10) {
+        // Time is up, and some aliens remain, display "game over" image
+        gameCanvas.drawImage(gameOverImage, 0, 0, canvas.width, canvas.height);
+    }
 }
 
 
@@ -186,7 +199,7 @@ function collisionDetection() {
                     bullets[i].y + bullets[i].height > aliens[j].y) {
                     aliens[j].health++; // increment the health of the hit alien
                     bullets.splice(i, 1); // remove the bullet that hit the alien
-                    
+
                     if (aliens[j].health === 3) { // if the alien has been hit 3 times
                         aliens[j].destroyed = true; // set the destroyed flag to true
                         const soundIndex = Math.floor(Math.random() * deathSounds.length); 
@@ -258,3 +271,8 @@ document.addEventListener("keydown", function(event) {
         requestAnimationFrame(gameLoop);
     }
 gameLoop();
+
+const gameOverImage = new Image();
+gameOverImage.src = "/assets/images/loseImage.png";
+const youWinImage = new Image();
+youWinImage.src = "/assets/images/winImage.png";
