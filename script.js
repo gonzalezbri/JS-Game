@@ -81,13 +81,9 @@ function createAlien() {
 				currentAlien.y = canvas.height / 4
 				vy = -vy // reverse y velocity to bounce back up
 			}
-			gameCanvas.drawImage(
-				alien.image,
-				currentAlien.x,
-				currentAlien.y,
-				alien.width,
-				alien.height
-			)
+			// Fix: use currentAlien.image instead of alien.image
+            gameCanvas.drawImage(currentAlien.image, currentAlien.x, currentAlien.y, currentAlien.width, currentAlien.height);
+			
 		}
 	}
 }
