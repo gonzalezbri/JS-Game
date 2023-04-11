@@ -1,10 +1,5 @@
 const canvas = document.getElementById("gameCanvas");
 const gameCanvas = canvas.getContext("2d");
-//Setting the total game run time to 15 sec
-let gameTime = 0;
-setInterval(function(){
-    gameTime++;
-}, 2000);
 
 //creating the background
 gameCanvas.fillStyle = "#000000";
@@ -95,11 +90,24 @@ function createAlien() {
     if (aliensRemaining === 0) {
         // All aliens are destroyed, display "you win" image
         gameCanvas.drawImage(youWinImage, 0, 0, canvas.width, canvas.height);
-    } else if (gameTime >= 10) {
+    } else if (gameTime <= 0) {
         // Time is up, and some aliens remain, display "game over" image
         gameCanvas.drawImage(gameOverImage, 0, 0, canvas.width, canvas.height);
+    } else { //displays the countdownInterval on the canvas
+        gameCanvas.fillStyle = "white";
+        gameCanvas.font = "30px Arial";
+        gameCanvas.fillText(`Time: ${gameTime}`, 20, 40);
     }
 }
+// created a countdown interval from 25 that displays on canvas for better game UI
+let gameTime = 25;
+const countdownInterval = setInterval(function() {
+    gameTime--;
+    if (gameTime <= 0) {
+        clearInterval(countdownInterval);
+    }
+}, 1000);
+
 
 
 //making the player move//
