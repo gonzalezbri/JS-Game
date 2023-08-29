@@ -1,0 +1,4 @@
+@function calculate-width($base-width, $multiplier) {
+    @return $base-width * $multiplier;
+}
+

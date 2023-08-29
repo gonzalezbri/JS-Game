@@ -1,0 +1,12 @@
+.card {
+    background-color: $primary-color;
+
+    &.highlighted {
+        border: 2px solid darken($primary-color, 10%);
+    }
+
+    .title {
+        font-size: $font-size;
+    }
+    
+}

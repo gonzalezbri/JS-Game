@@ -1,0 +1,21 @@
+.card {
+  background-color: #3c7a36;
+}
+.card.highlighted {
+  border: 2px solid #2b5726;
+}
+.card .title {
+  font-size: 16px;
+}
+
+.container {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3c7a36;
+}
+
+.warning {
+  border: 2px solid red;
+}/*# sourceMappingURL=styles.css.map */

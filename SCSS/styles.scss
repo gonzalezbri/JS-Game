@@ -1,0 +1,16 @@
+@import 'partials';
+
+.container {
+    width: calculate-width(200px, 2);
+    @include flex-center;
+    color: $primary-color;
+}
+
+.warning {
+    border: 2px solid red;
+
+    @if $primary-color == #3498db {
+    @error "Primary color should not be blue!";
+    }
+}
+
