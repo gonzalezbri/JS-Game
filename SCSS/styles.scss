@@ -1,16 +1,34 @@
 @import 'partials';
 
 .container {
-    width: calculate-width(200px, 2);
-    @include flex-center;
+    justify-content: center;
+    align-items: center;
+    //width: calculate-width(200px, 2);
+    @include center-content;
     color: $primary-color;
+    font-size: 36px; // Adjust the font size as desired
+    font-family: sans-serif; // Replace with your desired font-family
 }
-
+.card.highlighted,
 .warning {
-    border: 2px solid red;
+    @include center-content;
+    background-color: $primary-color; // Set the background color to the primary color
+    color: black; // Set the text color to black
+    border: 4px solid black;
 
     @if $primary-color == #3498db {
-    @error "Primary color should not be blue!";
+        @error "Primary color should not be blue!";
     }
+}
+
+#gameCanvas {
+    display: block;
+    margin: 0 auto;
+}
+
+body {
+    background-color: rgb(26, 24, 24);
+    margin: 0;
+    
 }
 
