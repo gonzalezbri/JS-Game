@@ -32,8 +32,6 @@ function createPlayer() {
 
 
 // Creating the Alien
-
-// Creating the Alien
 const aliens: any[] = [];
 const alien = {
     x: 100,
